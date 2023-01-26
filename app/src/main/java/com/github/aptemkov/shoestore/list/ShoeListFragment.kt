@@ -10,10 +10,6 @@ import com.github.aptemkov.shoestore.R
 
 class ShoeListFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ShoeListFragment()
-    }
-
     private lateinit var viewModel: ShoeListViewModel
 
     override fun onCreateView(
