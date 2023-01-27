@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/authorizationFragment"
         android:name="com.github.aptemkov.shoestore.authorization.AuthorizationFragment"
-        android:label="fragment_authorization"
+        android:label="Authorization"
         tools:layout="@layout/fragment_authorization" >
         <action
             android:id="@+id/action_authorizationFragment_to_welcomeFragment"
@@ -19,38 +19,50 @@
     <fragment
         android:id="@+id/instructionFragment"
         android:name="com.github.aptemkov.shoestore.instruction.InstructionFragment"
-        android:label="fragment_instruction"
+        android:label="Instruction"
         tools:layout="@layout/fragment_instruction" >
         <action
             android:id="@+id/action_instructionFragment_to_shoeListFragment"
             app:destination="@id/shoeListFragment" />
+        <argument
+            android:name="username"
+            app:argType="string" />
     </fragment>
 
     <fragment
         android:id="@+id/shoeListFragment"
         android:name="com.github.aptemkov.shoestore.list.ShoeListFragment"
-        android:label="fragment_shoe_list"
+        android:label="List"
         tools:layout="@layout/fragment_shoe_list" >
         <action
             android:id="@+id/action_shoeListFragment_to_shoeDetailsFragment"
-            app:destination="@id/shoeDetailsFragment" />
+            app:destination="@id/shoeDetailsFragment" >
+        </action>
     </fragment>
 
     <fragment
         android:id="@+id/shoeDetailsFragment"
-        android:name="com.github.aptemkov.shoestore.details.ShoeDetailsFragment"
+        android:name="com.github.aptemkov.shoestore.details.AddingShoeFragment"
         android:label="fragment_shoe_details"
-        tools:layout="@layout/fragment_shoe_details" />
+        tools:layout="@layout/fragment_shoe_details" >
+
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/welcomeFragment"
         android:name="com.github.aptemkov.shoestore.welcome.WelcomeFragment"
-        android:label="fragment_welcome"
+        android:label="Welcome, {username}"
         tools:layout="@layout/fragment_welcome" >
         <action
             android:id="@+id/action_welcomeFragment_to_instructionFragment"
             app:destination="@id/instructionFragment"
             app:popUpToInclusive="false" />
+        <argument
+            android:name="username"
+            app:argType="string" />
     </fragment>
 
 </navigation>

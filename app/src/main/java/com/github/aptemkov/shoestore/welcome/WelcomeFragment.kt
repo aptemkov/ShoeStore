@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.github.aptemkov.shoestore.R
 import com.github.aptemkov.shoestore.databinding.FragmentWelcomeBinding
 
 class WelcomeFragment : Fragment() {
 
     private lateinit var binding: FragmentWelcomeBinding
+    private val navigationArgs: WelcomeFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +30,8 @@ class WelcomeFragment : Fragment() {
         renderAnimations()
 
         Handler().postDelayed({
-            findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToInstructionFragment())
+            val action = WelcomeFragmentDirections.actionWelcomeFragmentToInstructionFragment(navigationArgs.username)
+            findNavController().navigate(action)
         }, 3000)
     }
 

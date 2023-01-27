@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:layout_margin="16dp"
     tools:context=".instruction.InstructionFragment">
 
     <TextView
@@ -31,6 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Start"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+        android:layout_marginTop="8dp"
+        style="@style/Widget.Material3.Button.OutlinedButton"/>
 
 </LinearLayout>

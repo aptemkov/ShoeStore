@@ -1,6 +1,7 @@
 package com.github.aptemkov.shoestore.models
 
-class Shoe(
+
+data class Shoe(
     var name: String,
     var size: Double,
     var company: String,
