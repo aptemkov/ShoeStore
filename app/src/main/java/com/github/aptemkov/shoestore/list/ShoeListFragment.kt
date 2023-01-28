@@ -1,16 +1,16 @@
 package com.github.aptemkov.shoestore.list
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.graphics.blue
 import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.github.aptemkov.shoestore.R
 import com.github.aptemkov.shoestore.StoreViewModel
 import com.github.aptemkov.shoestore.StoreViewModelFactory
@@ -27,6 +27,10 @@ class ShoeListFragment : Fragment() {
         StoreViewModelFactory()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,8 +44,10 @@ class ShoeListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.fab.setOnClickListener {
-            // viewModel.addShoe(Shoe(name = "1Test", size = 12.3, company = "Apple", description = "tk erjfekw flh"))
-            val action = ShoeListFragmentDirections.actionShoeListFragmentToShoeDetailsFragment(-1)
+            val action = ShoeListFragmentDirections.actionShoeListFragmentToShoeDetailsFragment(
+                /*id =*/-1,
+                /*title =*/resources.getString(R.string.adding_title)
+            )
             findNavController().navigate(action)
         }
 
@@ -53,7 +59,7 @@ class ShoeListFragment : Fragment() {
         }
     }
 
-    private fun addShoeToList(shoe:Shoe) {
+    private fun addShoeToList(shoe: Shoe) {
         val view = layoutInflater.inflate(R.layout.shoe_item, null)
         val nameView = view.findViewById<TextView>(R.id.shoe_name)
         val companyView = view.findViewById<TextView>(R.id.shoe_company)
@@ -65,16 +71,32 @@ class ShoeListFragment : Fragment() {
         companyView.text = shoe.company
         sizeView.text = shoe.size.toString()
 
-        view.setOnClickListener{
+        view.setOnClickListener {
             val id = viewModel.getId(shoe)
-            val action = ShoeListFragmentDirections.actionShoeListFragmentToShoeDetailsFragment(id)
+            val action = ShoeListFragmentDirections.actionShoeListFragmentToShoeDetailsFragment(
+                /*id =*/ id,
+                /*title =*/ resources.getString(R.string.details_title))
             findNavController().navigate(action)
-            //Toast.makeText(activity?.applicationContext, "$tag", Toast.LENGTH_SHORT).show()
         }
 
         binding.layout.addView(view)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.list_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.logout -> {
+                requireView().findNavController().navigateUp()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

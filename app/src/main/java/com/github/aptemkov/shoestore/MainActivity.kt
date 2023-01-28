@@ -19,12 +19,22 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
         navController = navHostFragment.navController
-        NavigationUI.setupActionBarWithNavController(this, navController)
+
+        NavigationUI.setupActionBarWithNavController(this@MainActivity, navController)
         appBarConfiguration = AppBarConfiguration(navController.graph)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.shoeListFragment
+                || destination.id == R.id.welcomeFragment) {
+                supportActionBar?.setHomeButtonEnabled(false)
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            }
+        }
     }
 
+
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp()
+        return navController.navigateUp()||super.onSupportNavigateUp()
     }
 
 }

@@ -12,8 +12,7 @@
         tools:layout="@layout/fragment_authorization" >
         <action
             android:id="@+id/action_authorizationFragment_to_welcomeFragment"
-            app:destination="@id/welcomeFragment"
-            app:popUpToInclusive="false" />
+            app:destination="@id/welcomeFragment"/>
     </fragment>
 
     <fragment
@@ -23,7 +22,9 @@
         tools:layout="@layout/fragment_instruction" >
         <action
             android:id="@+id/action_instructionFragment_to_shoeListFragment"
-            app:destination="@id/shoeListFragment" />
+            app:destination="@id/shoeListFragment"
+            app:popUpTo="@id/authorizationFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="username"
             app:argType="string" />
@@ -43,12 +44,15 @@
     <fragment
         android:id="@+id/shoeDetailsFragment"
         android:name="com.github.aptemkov.shoestore.details.AddingShoeFragment"
-        android:label="fragment_shoe_details"
+        android:label="{title}"
         tools:layout="@layout/fragment_shoe_details" >
 
         <argument
             android:name="id"
             app:argType="integer" />
+        <argument
+            android:name="title"
+            app:argType="string" />
     </fragment>
 
     <fragment

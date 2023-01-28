@@ -24,5 +24,10 @@
         android:layout_marginBottom="8dp"
         android:textColor="@color/black"
         android:text="Please, wait"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nextBtn"
+        android:text="Next"/>
 
 </LinearLayout>

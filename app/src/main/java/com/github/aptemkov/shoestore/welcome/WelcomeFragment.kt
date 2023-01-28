@@ -28,11 +28,7 @@ class WelcomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentWelcomeBinding.bind(view)
         renderAnimations()
-
-        Handler().postDelayed({
-            val action = WelcomeFragmentDirections.actionWelcomeFragmentToInstructionFragment(navigationArgs.username)
-            findNavController().navigate(action)
-        }, 3000)
+        binding.nextBtn.setOnClickListener { toWelcomeFragment() }
     }
 
     private fun renderAnimations() {
@@ -48,7 +44,17 @@ class WelcomeFragment : Fragment() {
             .setStartDelay(500)
             .setDuration(3000)
             .start()
+        binding.nextBtn.alpha = 0f
+        binding.nextBtn.animate()
+            .alpha(1f)
+            .setStartDelay(500)
+            .setDuration(3000)
+            .start()
 
     }
 
+    private fun toWelcomeFragment() {
+        val action = WelcomeFragmentDirections.actionWelcomeFragmentToInstructionFragment(navigationArgs.username)
+        findNavController().navigate(action)
+    }
 }
